@@ -22,16 +22,15 @@ export class NextjsLambdaCdkStack extends Stack {
     const lambdaAdapterLayer = lambda.LayerVersion.fromLayerVersionArn(
       this,
       'LambdaAdapterLayerX86',
-      `arn:aws:lambda:${this.region}:753240598075:layer:LambdaAdapterLayerX86:3`
+      `arn:aws:lambda:${this.region}:753240598075:layer:LambdaAdapterLayerX86:25`
     );
 
     const nextCdkFunction = new lambda.Function(this, 'NextCdkFunction', {
-      runtime: lambda.Runtime.NODEJS_16_X,
+      runtime: lambda.Runtime.NODEJS_18_X,
       handler: 'run.sh',
       code: lambda.Code.fromAsset(path.join(
         __dirname,
-        '../app/.next/',
-        'standalone')
+        '../app/.next/','standalone')
       ),
       architecture: lambda.Architecture.X86_64,
       environment: {
@@ -68,7 +67,7 @@ export class NextjsLambdaCdkStack extends Stack {
       blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       encryption: s3.BucketEncryption.S3_MANAGED,
       versioned: true,
-      accessControl: s3.BucketAccessControl.LOG_DELIVERY_WRITE,
+      objectOwnership : s3.ObjectOwnership.OBJECT_WRITER
     });
     
     const nextBucket = new s3.Bucket(this, 'next-bucket', {
@@ -77,6 +76,7 @@ export class NextjsLambdaCdkStack extends Stack {
       versioned: true,
       serverAccessLogsBucket: nextLoggingBucket,
       serverAccessLogsPrefix: 's3-access-logs',
+      objectOwnership : s3.ObjectOwnership.OBJECT_WRITER
     });
 
     new CfnOutput(this, 'Next bucket', { value: nextBucket.bucketName });
@@ -109,14 +109,14 @@ export class NextjsLambdaCdkStack extends Stack {
     new s3deploy.BucketDeployment(this,  'deploy-next-static-bucket', {
         sources: [s3deploy.Source.asset('app/.next/static/')],
         destinationBucket: nextBucket,
-        destinationKeyPrefix: '_next/static', 
+        destinationKeyPrefix: 'next/static', 
         distribution: cloudfrontDistribution,
-        distributionPaths: ['/_next/static/*']
+        distributionPaths: ['/next/static/*']
       }
     );
     
     new s3deploy.BucketDeployment(this,  'deploy-next-public-bucket', {
-        sources: [s3deploy.Source.asset('app/public/static/')],
+        sources: [s3deploy.Source.asset('app/.next/static/')],
         destinationBucket: nextBucket,
         destinationKeyPrefix: 'static', 
         distribution: cloudfrontDistribution,

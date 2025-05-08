@@ -1,7 +1,9 @@
-/** @type {import('next').NextConfig} */
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 const nextConfig = {
-  reactStrictMode: true,
-  output: 'standalone',
-}
-
-module.exports = nextConfig
+    /* config options here */
+    reactStrictMode: true,
+    output: 'standalone',
+};
+exports.default = nextConfig;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoibmV4dC5jb25maWcuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJuZXh0LmNvbmZpZy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOztBQUVBLE1BQU0sVUFBVSxHQUFlO0lBQzdCLHlCQUF5QjtJQUN6QixlQUFlLEVBQUUsSUFBSTtJQUNyQixNQUFNLEVBQUUsWUFBWTtDQUNyQixDQUFDO0FBRUYsa0JBQWUsVUFBVSxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHR5cGUgeyBOZXh0Q29uZmlnIH0gZnJvbSBcIm5leHRcIjtcblxuY29uc3QgbmV4dENvbmZpZzogTmV4dENvbmZpZyA9IHtcbiAgLyogY29uZmlnIG9wdGlvbnMgaGVyZSAqL1xuICByZWFjdFN0cmljdE1vZGU6IHRydWUsXG4gIG91dHB1dDogJ3N0YW5kYWxvbmUnLFxufTtcblxuZXhwb3J0IGRlZmF1bHQgbmV4dENvbmZpZztcbiJdfQ==
